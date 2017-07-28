@@ -1,0 +1,18 @@
+[Unit]
+Description=cassandra-pro
+
+[Service]
+User=core
+TimeoutStartSec=0
+EnvironmentFile=/etc/environment
+ExecStartPre=/usr/bin/docker rm cassandra-pro
+ExecStart=/usr/bin/docker run --rm --name cassandra-pro -p 9042:9042 cassandra
+#
+ExecStop=/usr/bin/docker stop cassandra-pro
+ExecStopPost=/usr/bin/docker rm cassandra-pro
+Restart=always
+RestartSec=10s
+
+[X-Fleet]
+Global=true
+MachineMetadata=service=cassandra-pro
