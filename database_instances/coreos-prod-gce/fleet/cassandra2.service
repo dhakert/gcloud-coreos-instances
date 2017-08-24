@@ -1,0 +1,8 @@
+[Unit]
+Description=cassandra-pro
+
+[Service]
+User=core
+TimeoutStartSec=0
+EnvironmentFile=/etc/environment
+ExecStart=/usr/bin/docker run --name cassandra2 -m 2g -d -e CASSANDRA_SEEDS="$(docker inspect --format='{{ .NetworkSettings.IPAddress }}' cassandra1)" cassandra
